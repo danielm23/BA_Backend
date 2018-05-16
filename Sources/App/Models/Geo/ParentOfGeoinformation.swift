@@ -4,8 +4,7 @@ import Foundation
 
 final class ParentOfGeoinformation: PostgreSQLPivot {
     var id: Int?
-    
-    //var id: UUID
+
     var geoinformationId: Geoinformation.ID
     var parentId: Geoinformation.ID
     

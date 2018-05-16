@@ -36,7 +36,4 @@ struct TagsController: RouteCollection {
                             return tag.save(on: req)
         }
     }
-    func optionsHandler(_ req: Request) throws -> HTTPStatus {
-        return HTTPStatus.ok
-    }
 }

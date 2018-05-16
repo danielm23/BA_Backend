@@ -6,11 +6,14 @@ struct GeoinformationsController: RouteCollection {
     
     func boot(router: Router) throws {
         let geoinformationsRoute = router.grouped("api","geoinformations")
+        
         geoinformationsRoute.get(use: getAllHandler)
+        geoinformationsRoute.get("overview", use: getOverviewHandler)
+        
         geoinformationsRoute.post(Geoinformation.self, use: createHandler)
         geoinformationsRoute.delete(Geoinformation.parameter, use: deleteHandler)
         
-        geoinformationsRoute.get(Geoinformation.parameter, "locatiosn", use: getLocationsHandler)
+        geoinformationsRoute.get(Geoinformation.parameter, "locations", use: getLocationsHandler)
         geoinformationsRoute.post(Geoinformation.parameter, "locations", Geolocation.parameter, use: addLocationHandler)
         
         geoinformationsRoute.get(Geoinformation.parameter, "groups", use: getGroupsHandler)
@@ -72,4 +75,12 @@ struct GeoinformationsController: RouteCollection {
                             return pivot.save(on: req).transform(to: .created)
         }
     }
+    func getOverviewHandler(_ req: Request) throws -> Future<[GeoOverview]> {
+        return try GeoOverview.query(on: req).filter(\GeoOverview.group == "Gebäude").all()
+    }
+    /*
+    func getChildrenHandler(_ req: Request) throws -> Future<[GeoOverview]> {
+        return try GeoOverview.query(on: req).filter(\GeoOverview.parentId == req.parameters.next(GeoOverview.self).map(to: String)).all()
+    }
+     */
 }

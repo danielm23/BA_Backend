@@ -47,8 +47,5 @@ struct VenuesController: RouteCollection {
             return try venue.events.query(on: req).all()
         }
     }
-    func optionsHandler(_ req: Request) throws -> HTTPStatus {
-        return HTTPStatus.ok
-    }
 }
 

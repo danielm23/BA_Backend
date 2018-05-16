@@ -4,8 +4,7 @@ import Foundation
 
 final class GeoinformationForGeolocation: PostgreSQLPivot {
     var id: Int?
-    
-    //var id: UUID
+
     var geoinformationId: Geoinformation.ID
     var geolocationId: Geolocation.ID
     

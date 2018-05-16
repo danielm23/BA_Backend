@@ -43,9 +43,9 @@ extension Geoinformation {
     var geogroups: Siblings<Geoinformation, Geogroup, GroupForGeoinformation> {
         return siblings()
     }
-    /*
-    var parents: Siblings<Geoinformation, Geoinformation, ParentOfGeoinformation> {
-        return siblings()
-    }*/
+    
+    //var parents: Siblings<Geoinformation, Geoinformation, ParentOfGeoinformation> {
+    //    return siblings()
+    //}
 }
 
