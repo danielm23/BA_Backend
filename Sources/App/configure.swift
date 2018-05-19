@@ -59,7 +59,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: GeoinformationForGeolocation.self, database: .psql)
     migrations.add(model: GroupForGeoinformation.self, database: .psql)
     
-    migrations.add(model: ParentOfGeoinformation.self, database: .psql)
+    //migrations.add(model: ParentOfGeoinformation.self, database: .psql)
     migrations.add(model: ParentOfGeogroup.self, database: .psql)
     
     migrations.add(model: GeoOverview.self, database: .psql)

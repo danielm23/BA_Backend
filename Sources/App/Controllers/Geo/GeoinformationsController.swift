@@ -8,7 +8,9 @@ struct GeoinformationsController: RouteCollection {
         let geoinformationsRoute = router.grouped("api","geoinformations")
         
         geoinformationsRoute.get(use: getAllHandler)
-        geoinformationsRoute.get("overview", use: getOverviewHandler)
+        geoinformationsRoute.get(Geoinformation.parameter, use: getHandler)
+
+        //geoinformationsRoute.get("overview", use: getOverviewHandler)
         
         geoinformationsRoute.post(Geoinformation.self, use: createHandler)
         geoinformationsRoute.delete(Geoinformation.parameter, use: deleteHandler)
@@ -19,12 +21,16 @@ struct GeoinformationsController: RouteCollection {
         geoinformationsRoute.get(Geoinformation.parameter, "groups", use: getGroupsHandler)
         geoinformationsRoute.post(Geoinformation.parameter, "groups", Geogroup.parameter, use: addGroupHandler)
         
-        geoinformationsRoute.post(Geoinformation.parameter, "parents", Geoinformation.parameter, use: addParentHandler)
+        //geoinformationsRoute.post(Geoinformation.parameter, "parents", Geoinformation.parameter, use: addParentHandler)
     }
     
     
     func getAllHandler(_ req: Request) throws -> Future<[Geoinformation]> {
         return Geoinformation.query(on: req).all()
+    }
+    
+    func getHandler(_ req: Request) throws -> Future<Geoinformation> {
+        return try req.parameters.next(Geoinformation.self)
     }
     
     func createHandler(_ req: Request, geoinformation: Geoinformation) throws -> Future<Geoinformation> {
@@ -61,26 +67,4 @@ struct GeoinformationsController: RouteCollection {
             return pivot.save(on: req).transform(to: .created)
         }
     }
-    /*
-    func getParentsHandler(_ req: Request) throws -> Future<[Geoinformation]> {
-        return try req.parameters.next(Geoinformation.self).flatMap(to: [Geoinformation].self) { group in
-            try group.geogroups.query(on: req).all()
-        }
-    }*/
-    
-    func addParentHandler(_ req: Request) throws -> Future<HTTPStatus> {
-        return try flatMap(to: HTTPStatus.self, req.parameters.next(Geoinformation.self),
-                           req.parameters.next(Geogroup.self)) { info, parent in
-                            let pivot = try ParentOfGeoinformation(info.requireID(), parent.requireID())
-                            return pivot.save(on: req).transform(to: .created)
-        }
-    }
-    func getOverviewHandler(_ req: Request) throws -> Future<[GeoOverview]> {
-        return try GeoOverview.query(on: req).filter(\GeoOverview.group == "Gebäude").all()
-    }
-    /*
-    func getChildrenHandler(_ req: Request) throws -> Future<[GeoOverview]> {
-        return try GeoOverview.query(on: req).filter(\GeoOverview.parentId == req.parameters.next(GeoOverview.self).map(to: String)).all()
-    }
-     */
 }

@@ -32,12 +32,18 @@ extension Geogroup {
     var geoinformations: Siblings<Geogroup, Geoinformation, GroupForGeoinformation> {
         return siblings()
     }
-    /*
-    var children: Siblings<Geogroup, Geogroup, ParentOfGeogroup> {
-        return siblings()
-    }
     
     var parents: Siblings<Geogroup, Geogroup, ParentOfGeogroup> {
+        return siblings(related: Geogroup.self,
+                        through: ParentOfGeogroup.self, \ParentOfGeogroup.geogroupId, \ParentOfGeogroup.parentId)
+    }
+    
+    var children: Siblings<Geogroup, Geogroup, ParentOfGeogroup> {
+        return siblings(related: Geogroup.self,
+                        through: ParentOfGeogroup.self, \ParentOfGeogroup.parentId, \ParentOfGeogroup.geogroupId)
+    }
+    
+    /*var parents: Siblings<Geogroup, Geogroup, ParentOfGeogroup> {
         return siblings()
     }*/
 }

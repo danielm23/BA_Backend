@@ -10,13 +10,15 @@ final class Geoinformation: PostgreSQLModel {
     var created: Date?
     var updated: Date?
     var userId: Int?
+    var parent: Geoinformation.ID?
     
     init(id: Int? = nil,
          title: String,
          shortinformation: String?,
          detailinformation: String?,
          synonyms: String?,
-         userId: Int?
+         userId: Int?,
+        parent: Geoinformation.ID?
         ) {
         self.id = id
         self.title = title
@@ -26,6 +28,7 @@ final class Geoinformation: PostgreSQLModel {
         self.created = Date()
         self.updated = Date()
         self.userId = 1
+        self.parent = parent
     }
 }
 
