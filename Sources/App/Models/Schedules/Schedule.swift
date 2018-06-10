@@ -38,11 +38,19 @@ extension Schedule {
         return children(\.scheduleId)
     }
     
-    var tags: Children<Schedule, Tag>{
+    var categories: Children<Schedule, Category>{
         return children(\.scheduleId)
     }
     
     var venues: Children<Schedule, Venue>{
+        return children(\.scheduleId)
+    }
+    
+    var messages: Children<Schedule, Message>{
+        return children(\.scheduleId)
+    }
+    
+    var tracks: Children<Schedule, Track>{
         return children(\.scheduleId)
     }
 }

@@ -10,7 +10,11 @@ struct SchedulesController: RouteCollection {
         schedulesRoute.put(Schedule.parameter, use: updateHandler)
         schedulesRoute.get(Schedule.parameter, "events", use: getEventsHandler)
         schedulesRoute.get(Schedule.parameter, "venues", use: getVenuesHandler)
-        schedulesRoute.get(Schedule.parameter, "tags", use: getTagsHandler)
+        schedulesRoute.get(Schedule.parameter, "categories", use: getCategoriesHandler)
+        schedulesRoute.get(Schedule.parameter, "tracks", use: getTracksHandler)
+        schedulesRoute.get(Schedule.parameter, "messages", use: getMessagesHandler)
+        // schedulesRoute.get(Schedule.parameter, "events", Event.parameter, "categories",use: getEventCategoriesHandler)
+
     }
     
     func getAllHandler(_ req: Request) throws -> Future<[Schedule]> {
@@ -49,15 +53,27 @@ struct SchedulesController: RouteCollection {
         }
     }
     
-    func getTagsHandler(_ req: Request) throws -> Future<[Tag]> {
-        return try req.parameters.next(Schedule.self).flatMap(to: [Tag].self){ schedule in
-            return try schedule.tags.query(on: req).all()
+    func getCategoriesHandler(_ req: Request) throws -> Future<[Category]> {
+        return try req.parameters.next(Schedule.self).flatMap(to: [Category].self){ schedule in
+            return try schedule.categories.query(on: req).all()
         }
     }
     
     func getVenuesHandler(_ req: Request) throws -> Future<[Venue]> {
         return try req.parameters.next(Schedule.self).flatMap(to: [Venue].self){ schedule in
             return try schedule.venues.query(on: req).all()
+        }
+    }
+    
+    func getTracksHandler(_ req: Request) throws -> Future<[Track]> {
+        return try req.parameters.next(Schedule.self).flatMap(to: [Track].self){ schedule in
+            return try schedule.tracks.query(on: req).all()
+        }
+    }
+    
+    func getMessagesHandler(_ req: Request) throws -> Future<[Message]> {
+        return try req.parameters.next(Schedule.self).flatMap(to: [Message].self){ schedule in
+            return try schedule.messages.query(on: req).all()
         }
     }
 }

@@ -10,7 +10,7 @@ struct EventsController: RouteCollection {
         eventsRoute.put(Event.parameter, use: updateHandler)
         eventsRoute.get(Event.parameter, "schedule", use: getScheduleHandler)
         eventsRoute.get(Event.parameter, "categories", use: getCategoriesHandler)
-        eventsRoute.post(Event.parameter, "categories", Tag.parameter, use: addCategoriesHandler)
+        eventsRoute.post(Event.parameter, "categories", Category.parameter, use: addCategoriesHandler)
     }
     
     func getAllHandler(_ req: Request) throws -> Future<[Event]> {
@@ -48,9 +48,9 @@ struct EventsController: RouteCollection {
         }
     }
     
-    func getCategoriesHandler(_ req: Request) throws -> Future<[Tag]>{
-        return try req.parameters.next(Event.self).flatMap(to: [Tag].self) { event in
-            return try event.tags.query(on: req).all()
+    func getCategoriesHandler(_ req: Request) throws -> Future<[Category]>{
+        return try req.parameters.next(Event.self).flatMap(to: [Category].self) { event in
+            return try event.categories.query(on: req).all()
         }
     }
     
@@ -62,8 +62,8 @@ struct EventsController: RouteCollection {
     }
     
     func addCategoriesHandler(_ req: Request) throws -> Future<HTTPStatus> {
-        return try flatMap(to: HTTPStatus.self, req.parameters.next(Event.self), req.parameters.next(Tag.self)) { event, tag in
-            let pivot = try EventCategoryPivot(event.requireID(), tag.requireID())
+        return try flatMap(to: HTTPStatus.self, req.parameters.next(Event.self), req.parameters.next(Category.self)) { event, category in
+            let pivot = try EventCategoryPivot(event.requireID(), category.requireID())
             return pivot.save(on: req).transform(to: .created)
         }
     }

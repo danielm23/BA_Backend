@@ -1,6 +1,6 @@
 import Foundation
-import FluentPostgreSQL
 import Vapor
+import FluentPostgreSQL
 
 final class Venue: Codable {
     var id: Int?

@@ -1,10 +1,11 @@
+import Foundation
 import Vapor
 import FluentPostgreSQL
 
-final class Tag: Codable {
+final class Category: Codable {
     var id: Int?
     var name: String
-    var color: Int64 //HEX
+    var color: Int64
     var scheduleId: Schedule.ID
 
     init(name: String, color: Int64, scheduleId: Schedule.ID) {
@@ -14,13 +15,13 @@ final class Tag: Codable {
     }
 }
 
-extension Tag: PostgreSQLModel { }
-extension Tag: Migration { }
-extension Tag: Content { }
-extension Tag: Parameter { }
+extension Category: PostgreSQLModel { }
+extension Category: Migration { }
+extension Category: Content { }
+extension Category: Parameter { }
 
-extension Tag {
-    var events: Siblings<Tag, Event, EventCategoryPivot> {
+extension Category {
+    var events: Siblings<Category, Event, EventCategoryPivot> {
         return siblings()
     }
 }

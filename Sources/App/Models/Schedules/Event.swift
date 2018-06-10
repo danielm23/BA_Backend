@@ -10,9 +10,10 @@ final class Event: Codable {
     var isActive: Bool
     var scheduleId: Schedule.ID
     var venueId: Venue.ID
+    var trackId: Track.ID?
 
     init(name: String, info: String, startDate: Date, endDate: Date,
-         isActive: Bool, scheduleId: Schedule.ID, venueId: Venue.ID) {
+         isActive: Bool, scheduleId: Schedule.ID, venueId: Venue.ID, trackId: Track.ID) {
         self.name = name
         self.info = info
         self.startDate = startDate
@@ -20,6 +21,7 @@ final class Event: Codable {
         self.isActive = isActive
         self.scheduleId = scheduleId
         self.venueId = venueId
+        self.trackId = trackId
     }
 }
 
@@ -33,7 +35,7 @@ extension Event {
         return parent(\.scheduleId)
     }
     
-    var tags: Siblings<Event, Tag, EventCategoryPivot> {
+    var categories: Siblings<Event, Category, EventCategoryPivot> {
         return siblings()
     }
 }

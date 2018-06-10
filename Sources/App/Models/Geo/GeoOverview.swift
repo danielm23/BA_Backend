@@ -10,6 +10,7 @@ final class GeoOverview: Codable {
     var group: String?
     var longitude: Double?
     var latitude: Double?
+    
     init(title: String,
          parentId: Int?,
          parent: String,

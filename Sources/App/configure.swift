@@ -55,22 +55,19 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: Geogroup.self, database: .psql)
     migrations.add(model: Geolocation.self, database: .psql)
     migrations.add(model: Geoinformation.self, database: .psql)
-    
     migrations.add(model: GeoinformationForGeolocation.self, database: .psql)
     migrations.add(model: GroupForGeoinformation.self, database: .psql)
-    
     //migrations.add(model: ParentOfGeoinformation.self, database: .psql)
     migrations.add(model: ParentOfGeogroup.self, database: .psql)
-    
     migrations.add(model: GeoOverview.self, database: .psql)
-
     
     // Schedules
     migrations.add(model: Event.self, database: .psql)
     migrations.add(model: Schedule.self, database: .psql)
-    migrations.add(model: Tag.self, database: .psql)
+    migrations.add(model: Category.self, database: .psql)
     migrations.add(model: Venue.self, database: .psql)
-    
+    migrations.add(model: Track.self, database: .psql)
+    migrations.add(model: Message.self, database: .psql)
     migrations.add(model: EventCategoryPivot.self, database: .psql)
     
     services.register(migrations)

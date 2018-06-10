@@ -5,18 +5,17 @@ import Foundation
 final class EventCategoryPivot: PostgreSQLUUIDPivot {
     var id: UUID?
     var eventId: Event.ID
-    var tagId: Tag.ID
+    var categoryId: Category.ID
     
     typealias Left = Event
-    typealias Right = Tag
+    typealias Right = Category
     
     static let leftIDKey: LeftIDKey = \EventCategoryPivot.eventId
-    static let rightIDKey: RightIDKey = \EventCategoryPivot.tagId
-    
+    static let rightIDKey: RightIDKey = \EventCategoryPivot.categoryId
 
-    init(_ eventId: Event.ID, _ tagId: Tag.ID) {
+    init(_ eventId: Event.ID, _ categoryId: Category.ID) {
         self.eventId = eventId
-        self.tagId = tagId
+        self.categoryId = categoryId
     }
 }
 

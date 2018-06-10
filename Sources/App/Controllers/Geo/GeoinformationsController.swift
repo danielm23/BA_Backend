@@ -10,7 +10,7 @@ struct GeoinformationsController: RouteCollection {
         geoinformationsRoute.get(use: getAllHandler)
         geoinformationsRoute.get(Geoinformation.parameter, use: getHandler)
 
-        //geoinformationsRoute.get("overview", use: getOverviewHandler)
+        //geoinformationsRoute.get(Geoinformation.parameter, "overview", use: getOverviewHandler)
         
         geoinformationsRoute.post(Geoinformation.self, use: createHandler)
         geoinformationsRoute.delete(Geoinformation.parameter, use: deleteHandler)
