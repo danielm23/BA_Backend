@@ -12,6 +12,12 @@ final class Schedule: Codable {
     var isPublic: Bool
     var version: Int
     
+    var created: Date?
+    var updated: Date?
+    
+    static var createdAtKey: TimestampKey? = \.created
+    static var updatedAtKey: TimestampKey? = \.updated
+    
     init(name: String,
          info: String,
          startDate: Date,

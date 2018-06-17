@@ -6,6 +6,12 @@ final class Track: Codable {
     var title: String
     var scheduleId: Schedule.ID
     
+    var created: Date?
+    var updated: Date?
+    
+    static var createdAtKey: TimestampKey? = \.created
+    static var updatedAtKey: TimestampKey? = \.updated
+    
     init(title: String, scheduleId: Schedule.ID) {
         self.title = title
         self.scheduleId = scheduleId

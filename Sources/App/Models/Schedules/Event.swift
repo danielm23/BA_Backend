@@ -11,6 +11,12 @@ final class Event: Codable {
     var scheduleId: Schedule.ID
     var venueId: Venue.ID
     var trackId: Track.ID?
+    
+    var created: Date?
+    var updated: Date?
+    
+    static var createdAtKey: TimestampKey? = \.created
+    static var updatedAtKey: TimestampKey? = \.updated
 
     init(name: String, info: String, startDate: Date, endDate: Date,
          isActive: Bool, scheduleId: Schedule.ID, venueId: Venue.ID, trackId: Track.ID) {

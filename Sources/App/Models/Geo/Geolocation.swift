@@ -14,6 +14,9 @@ final class Geolocation: PostgreSQLModel {
     var created: Date?
     var updated: Date?
     var userId: Int?
+    
+    static var createdAtKey: TimestampKey? = \.created
+    static var updatedAtKey: TimestampKey? = \.updated
 
     init(
          adress: String,
@@ -22,9 +25,7 @@ final class Geolocation: PostgreSQLModel {
          country: String,
          longitude: Double,
          latitude: Double,
-         floor: Int,
-         created: Date,
-         updated: Date
+         floor: Int
          ) {
         self.adress = adress
         self.zip = zip
@@ -34,7 +35,6 @@ final class Geolocation: PostgreSQLModel {
         self.latitude = latitude
         self.floor = floor
         //self.location = PostgreSQLPoint(x: x, y: y)
-        self.created = Date()
     }
 }
 

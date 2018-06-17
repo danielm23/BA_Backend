@@ -8,6 +8,12 @@ final class Venue: Codable {
     var scheduleId: Schedule.ID
     var geoinformationId: Geoinformation.ID?
     
+    var created: Date?
+    var updated: Date?
+    
+    static var createdAtKey: TimestampKey? = \.created
+    static var updatedAtKey: TimestampKey? = \.updated
+    
     init(name: String, scheduleId: Schedule.ID, geoinformationId: Geoinformation.ID) {
         self.name = name
         self.scheduleId = scheduleId

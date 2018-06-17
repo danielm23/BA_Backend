@@ -7,6 +7,12 @@ final class Category: Codable {
     var name: String
     var color: Int64
     var scheduleId: Schedule.ID
+    
+    var created: Date?
+    var updated: Date?
+    
+    static var createdAtKey: TimestampKey { return \.created }
+    static var updatedAtKey: TimestampKey { return \.updated }
 
     init(name: String, color: Int64, scheduleId: Schedule.ID) {
         self.name = name

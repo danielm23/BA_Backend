@@ -10,7 +10,7 @@ public func routes(_ router: Router) throws {
     router.get("hello") { req in
         return "Hello, world!"
     }
-    
+    /*
     router.get("search") { req -> Future<String> in
         return req.withPooledConnection(to: .psql) { conn in
             return try conn.query("select * from geosearch;").map(to: String.self)
@@ -20,7 +20,7 @@ public func routes(_ router: Router) throws {
             }
         }
     }
-    
+    */
     let eventsController = EventsController()
     try router.register(collection: eventsController)
     

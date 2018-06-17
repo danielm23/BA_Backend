@@ -9,16 +9,15 @@ final class Geogroup: PostgreSQLModel {
     var updated: Date?
     var userId: Int?
     
+    static var createdAtKey: TimestampKey? = \.created
+    static var updatedAtKey: TimestampKey? = \.updated
+    
     init(
         title: String,
-        description: String,
-        created: Date,
-        updated: Date
+        description: String
         ) {
         self.title = title
         self.description = description
-        self.created = created
-        self.updated = updated
     }
 }
 
