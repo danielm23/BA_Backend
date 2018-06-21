@@ -1,6 +1,7 @@
 import Routing
 import Vapor
 import FluentPostgreSQL
+import FluentQuery
 
 /// Register your application's routes here.
 ///
@@ -14,13 +15,31 @@ public func routes(_ router: Router) throws {
     router.get("search") { req -> Future<String> in
         return req.withPooledConnection(to: .psql) { conn in
             return try conn.query("select * from geosearch;").map(to: String.self)
-            { rows in
+            /*{ rows in
                 print(rows)
-                return try rows[0].firstValue(forColumn: "title")?.decode(String.self) ?? "n/a"
-            }
+                return try rows[0].firstValue(tableOID: id, name: "title")?.decode(String.self) ?? "n/a"
+            }*/
+        }
+    }*/
+    
+    
+   
+    let searchTerm: String = "mensa"
+    
+    router.get("results", searchTerm: String) { req -> Future<[GeoSearchResult]> in
+        return req.requestPooledConnection(to: .psql).flatMap { conn -> EventLoopFuture<[GeoSearchResult]> in
+            defer { try? req.releasePooledConnection(conn, to: .psql) }
+            let fq = FluentQuery()
+                .select(\GeoSearchResult.id, as: "id")
+                .select(\GeoSearchResult.title, as: "title")
+                .from(GeoSearchResult.self)
+                .where(FQWhere("\"_geosearchresult_\".document @@ to_tsquery('german', '\(searchTerm)')"))
+            return try fq
+                .execute(on: conn)
+                .decode(GeoSearchResult.self)
         }
     }
-    */
+    
     let eventsController = EventsController()
     try router.register(collection: eventsController)
     
