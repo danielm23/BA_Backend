@@ -53,6 +53,7 @@
           "branch": null,
           "revision": "28a6ea239232e0cb1f4bce26f824cd9b8fe7dad2",
           "version": "1.0.0-rc.4.0.1"
+<<<<<<< HEAD
         }
       },
       {
@@ -62,6 +63,8 @@
           "branch": null,
           "revision": "fb9b2aac3d0abd94a13e74cb05a74d176e510fca",
           "version": "0.4.11"
+=======
+>>>>>>> origin/master
         }
       },
       {
