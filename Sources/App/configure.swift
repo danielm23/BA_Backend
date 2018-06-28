@@ -35,10 +35,8 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     middlewares.use(CORSMiddleware(configuration: corsConfig))
     services.register(middlewares)
+    
     /// Database Connection
-    /*
-     let mysqlConfig = MySQLDatabaseConfig(hostname: "127.0.0.1", port: 3306, username: "user", password: "password", database: "vapor")
-     */
     var databases = DatabasesConfig()
     
     let psqlConfig = PostgreSQLDatabaseConfig(hostname: "localhost", port: 5432, username: "daniel")
@@ -55,9 +53,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: Geogroup.self, database: .psql)
     migrations.add(model: Geolocation.self, database: .psql)
     migrations.add(model: Geoinformation.self, database: .psql)
-    migrations.add(model: GeoinformationForGeolocation.self, database: .psql)
     migrations.add(model: GroupForGeoinformation.self, database: .psql)
-    //migrations.add(model: ParentOfGeoinformation.self, database: .psql)
     migrations.add(model: ParentOfGeogroup.self, database: .psql)
     migrations.add(model: GeoOverview.self, database: .psql)
     

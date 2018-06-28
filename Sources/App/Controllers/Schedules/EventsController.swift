@@ -54,12 +54,12 @@ struct EventsController: RouteCollection {
         }
     }
     
-    func addLocationHandler(_ req: Request) throws -> Future<HTTPStatus> {
+    /*func addLocationHandler(_ req: Request) throws -> Future<HTTPStatus> {
         return try flatMap(to: HTTPStatus.self, req.parameters.next(Geoinformation.self), req.parameters.next(Geolocation.self)) { info, location in
             let pivot = try GeoinformationForGeolocation(info.requireID(), location.requireID())
             return pivot.save(on: req).transform(to: .created)
         }
-    }
+    }*/
     
     func addCategoriesHandler(_ req: Request) throws -> Future<HTTPStatus> {
         return try flatMap(to: HTTPStatus.self, req.parameters.next(Event.self), req.parameters.next(Category.self)) { event, category in

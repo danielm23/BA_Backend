@@ -1,36 +1,28 @@
 import FluentPostgreSQL
 import Vapor
 
-final class GeoOverview: Codable {
-    
+final class GeoOverview: PostgreSQLModel {
     var id: Int?
     var title: String?
-    var parentId: Int?
-    var parent: String?
-    var group: String?
-    var longitude: Double?
     var latitude: Double?
+    var longitude: Double?
+    var document: String
     
-    init(title: String,
-         parentId: Int?,
-         parent: String,
-         group: String,
-         longitude: Double?,
-         latitude: Double?) {
+    init(
+        title: String,
+        latitude: Double?,
+        longitude: Double?,
+        document: String
+        ) {
         self.title = title
-        self.parentId = parentId
-        self.parent = parent
-        self.group = group
-        self.longitude = longitude
         self.latitude = latitude
+        self.longitude = longitude
+        self.document = document
     }
 }
 
-extension GeoOverview: PostgreSQLModel { }
+extension GeoOverview: Migration { }
 
 extension GeoOverview: Content { }
 
-extension GeoOverview: Migration { }
-
 extension GeoOverview: Parameter { }
-

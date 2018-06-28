@@ -45,10 +45,14 @@ extension Geolocation: Content { }
 extension Geolocation: Parameter { }
 
 extension Geolocation {
+    var events: Children<Geolocation, Geoinformation>{
+        return children(\.geolocationId)
+    }
+    /*
     var geoinformations: Siblings<Geolocation, Geoinformation, GeoinformationForGeolocation> {
         return siblings()
     }
-    /*
+    
     var children
     
     var parents*/

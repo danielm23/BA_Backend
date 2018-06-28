@@ -10,6 +10,7 @@ final class Geoinformation: PostgreSQLModel {
     var created: Date?
     var updated: Date?
     var userId: Int?
+    var geolocationId: Geolocation.ID?
     var parent: Geoinformation.ID?
     
     static var createdAtKey: TimestampKey? = \.created
@@ -21,7 +22,8 @@ final class Geoinformation: PostgreSQLModel {
          detailinformation: String?,
          synonyms: String?,
          userId: Int?,
-        parent: Geoinformation.ID?
+         geolocationId: Geolocation.ID?,
+         parent: Geoinformation.ID?
         ) {
         self.id = id
         self.title = title
@@ -29,6 +31,7 @@ final class Geoinformation: PostgreSQLModel {
         self.detailinformation = detailinformation
         self.synonyms = synonyms
         self.userId = 1
+        self.geolocationId = geolocationId
         self.parent = parent
     }
 }
@@ -40,10 +43,7 @@ extension Geoinformation: Content { }
 extension Geoinformation: Parameter { }
 
 extension Geoinformation {
-    var geolocations: Siblings<Geoinformation, Geolocation, GeoinformationForGeolocation> {
-        return siblings()
-    }
-    
+
     var geogroups: Siblings<Geoinformation, Geogroup, GroupForGeoinformation> {
         return siblings()
     }

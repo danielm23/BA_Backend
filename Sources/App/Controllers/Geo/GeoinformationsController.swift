@@ -1,6 +1,6 @@
 import Vapor
 import FluentPostgreSQL
-
+import FluentQuery
 
 struct GeoinformationsController: RouteCollection {
     
@@ -15,15 +15,16 @@ struct GeoinformationsController: RouteCollection {
         geoinformationsRoute.post(Geoinformation.self, use: createHandler)
         geoinformationsRoute.delete(Geoinformation.parameter, use: deleteHandler)
         
-        geoinformationsRoute.get(Geoinformation.parameter, "locations", use: getLocationsHandler)
-        geoinformationsRoute.post(Geoinformation.parameter, "locations", Geolocation.parameter, use: addLocationHandler)
+        //geoinformationsRoute.get(Geoinformation.parameter, "locations", use: getLocationsHandler)
+        //geoinformationsRoute.post(Geoinformation.parameter, "locations", Geolocation.parameter, use: addLocationHandler)
         
         geoinformationsRoute.get(Geoinformation.parameter, "groups", use: getGroupsHandler)
         geoinformationsRoute.post(Geoinformation.parameter, "groups", Geogroup.parameter, use: addGroupHandler)
         
         //geoinformationsRoute.post(Geoinformation.parameter, "parents", Geoinformation.parameter, use: addParentHandler)
+        
+        geoinformationsRoute.get("overview", GeoOverview.parameter, use: getGeoOverview)
     }
-    
     
     func getAllHandler(_ req: Request) throws -> Future<[Geoinformation]> {
         return Geoinformation.query(on: req).all()
@@ -41,9 +42,11 @@ struct GeoinformationsController: RouteCollection {
         return try req.parameters.next(Geoinformation.self).delete(on: req).transform(to: HTTPStatus.noContent)
     }
     
+    /*
     func getLocationsHandler(_ req: Request) throws -> Future<[Geolocation]> {
+     
         return try req.parameters.next(Geoinformation.self).flatMap(to: [Geolocation].self) { location in
-            try location.geolocations.query(on: req).all()
+            try location.geolocationId
         }
     }
 
@@ -52,7 +55,7 @@ struct GeoinformationsController: RouteCollection {
             let pivot = try GeoinformationForGeolocation(info.requireID(), location.requireID())
             return pivot.save(on: req).transform(to: .created)
         }
-    }
+    }*/
     
     func getGroupsHandler(_ req: Request) throws -> Future<[Geogroup]> {
         return try req.parameters.next(Geoinformation.self).flatMap(to: [Geogroup].self) { group in
@@ -66,5 +69,9 @@ struct GeoinformationsController: RouteCollection {
             let pivot = try GroupForGeoinformation(info.requireID(), group.requireID())
             return pivot.save(on: req).transform(to: .created)
         }
+    }
+    
+    func getGeoOverview(_ req: Request) throws -> Future<GeoOverview> {
+        return try req.parameters.next(GeoOverview.self)
     }
 }

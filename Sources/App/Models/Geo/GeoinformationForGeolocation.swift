@@ -1,7 +1,7 @@
 import FluentPostgreSQL
 import Vapor
 import Foundation
-
+/*
 final class GeoinformationForGeolocation: PostgreSQLPivot {
     var id: Int?
 
@@ -26,3 +26,4 @@ final class GeoinformationForGeolocation: PostgreSQLPivot {
 }
 
 extension GeoinformationForGeolocation: Migration { }
+*/
