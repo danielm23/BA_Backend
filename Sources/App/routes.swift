@@ -37,12 +37,12 @@ public func routes(_ router: Router) throws {
     struct ScheduleRequest: Codable {
         var scheduleId: String
     }
-    
+    /*
     router.get("api", "geooverviews") { req -> Future<[GeoOverview]> in
         
         let query = try req.query.decode(ScheduleRequest.self)
         let schdeduleId = query.scheduleId
-        
+     
         return req.requestPooledConnection(to: .psql).flatMap { conn -> EventLoopFuture<[GeoOverview]> in
             defer { try? req.releasePooledConnection(conn, to: .psql) }
             let fq = FluentQuery()
@@ -55,7 +55,7 @@ public func routes(_ router: Router) throws {
                 .execute(on: conn)
                 .decode(GeoOverview.self)
         }
-    }
+    }*/
     
     let eventsController = EventsController()
     try router.register(collection: eventsController)

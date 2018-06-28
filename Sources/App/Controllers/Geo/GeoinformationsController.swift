@@ -1,11 +1,6 @@
 import Vapor
 import FluentPostgreSQL
 import FluentQuery
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/master
 
 struct GeoinformationsController: RouteCollection {
     
@@ -32,7 +27,7 @@ struct GeoinformationsController: RouteCollection {
         
         //geoinformationsRoute.post(Geoinformation.parameter, "parents", Geoinformation.parameter, use: addParentHandler)
         
-        geoinformationsRoute.get("overview", GeoOverview.parameter, use: getGeoOverview)
+        //geoinformationsRoute.get("overview", GeoOverview.parameter, use: getGeoOverview)
     }
     
     func getAllHandler(_ req: Request) throws -> Future<[Geoinformation]> {
@@ -79,26 +74,4 @@ struct GeoinformationsController: RouteCollection {
             return pivot.save(on: req).transform(to: .created)
         }
     }
-    
-<<<<<<< HEAD
-    func getGeoOverview(_ req: Request) throws -> Future<GeoOverview> {
-        return try req.parameters.next(GeoOverview.self)
-    }
-=======
-    func searchHandler(_ req: Request) throws -> Future<[GeoSearchResult]> {
-        let fq = FluentQuery()
-            .select(\GeoSearchResult.id, as: "id")
-            .select(\GeoSearchResult.title, as: "title")
-            .from(GeoSearchResult.self)
-            .where(FQWhere("\"_geosearchresult_\".document @@ to_tsquery('german', 'mensa')"))
-        return req.requestPooledConnection(to: .psql).flatMap { conn -> EventLoopFuture<[GeoSearchResult]> in
-            defer { try? req.releasePooledConnection(conn, to: .psql) }
-            print(fq)
-            return try fq
-                .execute(on: conn)
-                .decode(GeoSearchResult.self)
-        }
-    }
-    
->>>>>>> origin/master
 }
