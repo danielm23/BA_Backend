@@ -37,8 +37,8 @@ public func routes(_ router: Router) throws {
     struct ScheduleRequest: Codable {
         var scheduleId: String
     }
-    /*
-    router.get("api", "geooverviews") { req -> Future<[GeoOverview]> in
+    
+    /*router.get("api", "geooverviews") { req -> Future<[GeoOverview]> in
         
         let query = try req.query.decode(ScheduleRequest.self)
         let schdeduleId = query.scheduleId
@@ -48,8 +48,8 @@ public func routes(_ router: Router) throws {
             let fq = FluentQuery()
                 .select(all: Venue.self)
                 .from(Venue.self)
-                //.join(.left, Schedule.self, where: \Schedule.id == \Venue.scheduleId)
-                .join(.left, GeoOverview.self, where: \GeoOverview.id == \Venue.id)
+                .join(.left, Schedule.self, where: (\Schedule.id == \Venue.scheduleId))
+                //.join(.left, GeoOverview.self, where: \GeoOverview.id == \Venue.id)
                 //.where(FQWhere(\Schedule.id == "schdeduleId"))
             return try fq
                 .execute(on: conn)

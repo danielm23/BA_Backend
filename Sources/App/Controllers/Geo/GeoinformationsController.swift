@@ -27,7 +27,7 @@ struct GeoinformationsController: RouteCollection {
         
         //geoinformationsRoute.post(Geoinformation.parameter, "parents", Geoinformation.parameter, use: addParentHandler)
         
-        //geoinformationsRoute.get("overview", GeoOverview.parameter, use: getGeoOverview)
+        geoinformationsRoute.get("overview", GeoOverview.parameter, use: getGeoOverview)
     }
     
     func getAllHandler(_ req: Request) throws -> Future<[Geoinformation]> {
@@ -46,21 +46,6 @@ struct GeoinformationsController: RouteCollection {
         return try req.parameters.next(Geoinformation.self).delete(on: req).transform(to: HTTPStatus.noContent)
     }
     
-    /*
-    func getLocationsHandler(_ req: Request) throws -> Future<[Geolocation]> {
-     
-        return try req.parameters.next(Geoinformation.self).flatMap(to: [Geolocation].self) { location in
-            try location.geolocationId
-        }
-    }
-
-    func addLocationHandler(_ req: Request) throws -> Future<HTTPStatus> {
-        return try flatMap(to: HTTPStatus.self, req.parameters.next(Geoinformation.self), req.parameters.next(Geolocation.self)) { info, location in
-            let pivot = try GeoinformationForGeolocation(info.requireID(), location.requireID())
-            return pivot.save(on: req).transform(to: .created)
-        }
-    }*/
-    
     func getGroupsHandler(_ req: Request) throws -> Future<[Geogroup]> {
         return try req.parameters.next(Geoinformation.self).flatMap(to: [Geogroup].self) { group in
             try group.geogroups.query(on: req).all()
@@ -73,5 +58,9 @@ struct GeoinformationsController: RouteCollection {
             let pivot = try GroupForGeoinformation(info.requireID(), group.requireID())
             return pivot.save(on: req).transform(to: .created)
         }
+    }
+    
+    func getGeoOverview(_ req: Request) throws -> Future<GeoOverview> {
+        return try req.parameters.next(GeoOverview.self)
     }
 }
