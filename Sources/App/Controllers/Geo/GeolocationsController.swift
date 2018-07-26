@@ -6,10 +6,8 @@ struct GeolocationsController: RouteCollection {
         let geolocationRoute = router.grouped("api","geolocations")
         geolocationRoute.get(use: getAllHandler)
         geolocationRoute.get(Geolocation.parameter, use: getHandler)
-
         geolocationRoute.post(Geolocation.self, use: createHandler)
         geolocationRoute.delete(Geolocation.parameter, use: deleteHandler)
-        //geolocationRoute.get(Geolocation.parameter, "infos", use: getInformationsHandler)
     }
 
     func getAllHandler(_ req: Request) throws -> Future<[Geolocation]> {

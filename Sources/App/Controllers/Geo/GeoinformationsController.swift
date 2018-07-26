@@ -9,24 +9,10 @@ struct GeoinformationsController: RouteCollection {
         
         geoinformationsRoute.get(use: getAllHandler)
         geoinformationsRoute.get(Geoinformation.parameter, use: getHandler)
-
-        //geoinformationsRoute.get(Geoinformation.parameter, "overview", use: getOverviewHandler)
-        
         geoinformationsRoute.post(Geoinformation.self, use: createHandler)
         geoinformationsRoute.delete(Geoinformation.parameter, use: deleteHandler)
-        
-        //geoinformationsRoute.get(Geoinformation.parameter, "locations", use: getLocationsHandler)
-        //geoinformationsRoute.post(Geoinformation.parameter, "locations", Geolocation.parameter, use: addLocationHandler)
-        
         geoinformationsRoute.get(Geoinformation.parameter, "groups", use: getGroupsHandler)
         geoinformationsRoute.post(Geoinformation.parameter, "groups", Geogroup.parameter, use: addGroupHandler)
-        
-        
-        //geoinformationsRoute.get(Geoinformation.parameter, "search", searchTerm: String, use: searchHandler)
-
-        
-        //geoinformationsRoute.post(Geoinformation.parameter, "parents", Geoinformation.parameter, use: addParentHandler)
-        
         geoinformationsRoute.get("overview", GeoOverview.parameter, use: getGeoOverview)
     }
     

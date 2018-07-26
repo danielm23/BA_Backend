@@ -30,7 +30,6 @@ struct SchedulesController: RouteCollection {
         return schedule.save(on: req)
     }
     
-    
     func getHandler(_ req: Request) throws -> Future<Schedule> {
         return try req.parameters.next(Schedule.self)
     }
